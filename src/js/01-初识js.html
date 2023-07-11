@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>初识js</title>
+</head>
+<body>
+  
+
+  <script>
+    //JS 三个关键字声明变量 const / let / var
+    //JS 数据类型分为两大类
+    //1、基本类型 ：string number null  undefined boolean bigInt symbol 
+    // 除了null Undefined  ，每一个基本类型都有一个包装类，使他们看起来像一个对象（万事皆对象<object>）,可以调用自己的方法
+    //面向对象三要素： 封装，继承，多态
+    //2、其他都属于引用类型 object，array
+    //3、typeof 可以查看数据类型
+    //声明的变量名称都只是栈地址的别名，栈地址存储例
+    //在c，c++,java,c#,类c 的强类型语言，会严格区分定义和声明
+    //函数也是一个对象，名字存在栈空间
+    //声明
+    var n;
+    //定义
+    var a = 123;
+    var str = 'aaa';
+    var str2 = "aa\"a";
+      
+    // 定义对象
+    function Student(name,age) {
+      this.name = name;
+      this.age = age;
+    }
+    var Lily = new Student('Lily',18)
+    console.log(Lily);
+
+    // class 语法(es6语法糖，本质还是function)
+    class Student2 {
+      constructor(name,age) {
+        this.name = name;
+        this.age = age;
+      }
+    }
+    var lucy = new Student2 ("lucy",19);
+    console.log(lucy);
+    //对象字面量
+    var obj = {
+      name: "Bob",
+      age: 18,
+    }
+    //数据运算
+    //四则远算：+-*/%（求模，求余）
+    //跟高级的数据运算需要借助包装类Number，工具类Math，Math.abs(-2)
+    //+ 拼接两个字符串，还有包装类String提供的方法
+    //boolean类型(true,false),经常用于逻辑运算(==,===,||,&&,!,!=,0!==)
+    //null可以参与其他类型的运算 'sss' + null = 'sssnull'
+    //数据类型的隐式转化,只能由数据类型在内存单位中占用小的自动的转向大的，反之要做显示类型转换(强制类型转化)
+
+
+    //String Number Math 一定要掌握
+ </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>猜数字游戏</title>
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+
+    div {
+      margin: 20px 20px;
+    }
+
+    .game-box {
+      width: 600px;
+      height: 345px;
+      margin: 20px auto;
+      border: solid 2px #666;
+      border-radius: 21px;
+    }
+
+    input {
+      width: 200px;
+    }
+
+    .pre-result {
+      display: none;
+    }
+
+    .guess-result {
+      display: none;
+      height: 30px;
+      line-height: 30px;
+      background-color: red;
+      color: #fff;
+    }
+
+    .restart {
+      display: none;
+    }
+  </style>
+</head>
+
+<body onload="init()">
+  <div class="game-box">
+    <h1 style="margin: 0 20px;">Number guessing game</h1>
+    <p style="margin: 0 20px;">
+      We have selected a random number between 1 and 100. See if you can guess it in 10 turns or fewer. We'll tell you
+      if your guess was too high or too low.
+    </p>
+    <div class="input-row">
+      <label>Enter a guess: </label>
+      <input type="number" id="num" min="1" max="100" required>
+      <button onclick="onSubmit()" id="sub" type="submit">Submit guess</button>
+    </div>
+    <div class="pre-result">
+      <label>Previous guesses: </label>
+    </div>
+    <div class="guess-result">Wrong!</div>
+    <div class="restart">
+      <button  onclick="onReset()">restart</button>
+    </div>
+  </div>
+
+  <script>
+    let target = Math.floor(Math.random() * 100);
+    let count = 0;
+    let preArray = [];
+
+    const nDom = document.getElementById('num')
+    const preDom = document.querySelector('.pre-result')
+    const guessDom = document.querySelector('.guess-result')
+    const resetDom = document.querySelector('.restart')
+    const Sub = document.getElementById('sub')
+
+    function init() {
+      onReset()
+    }
+    function onReset() {
+      nDom.value = '';
+      target = Math.floor(Math.random() * 100);
+      count = 0;
+      preArray = [];
+      nDom.disabled = false
+      Sub.disabled = false
+      
+
+      preDom.style.display = 'none'
+      guessDom.style.display = 'none'
+      resetDom.style.display = 'none'
+
+    }
+
+    function onSubmit() {
+
+      if (Sub.disabled) return;
+
+      let n = Number(nDom.value);
+      console.log(typeof(nDom.value));
+      preArray.push(n)
+      preDom.innerText = `Previous guesses: ${preArray.join(' ')}`
+      preDom.style.display = 'block'
+      if (n === target) {
+        guessDom.innerText = 'Congratulations! You got it right!'
+        guessDom.style.backgroundColor = 'green'
+        guessDom.style.display = 'block'
+        nDom.disabled = true
+        Sub.disabled = true
+        resetDom.style.display = 'block'
+        nDom.value = ''
+      } else if (count == 9) {
+        guessDom.innerText = '!!!GAME OVER!!!'
+        guessDom.style.display = 'block'
+        resetDom.style.display = 'block'
+        nDom.disabled = true
+        Sub.disabled = true
+        nDom.value = ''
+      } else {
+        if (count < 9 && n !== target) {
+          guessDom.innerText = `'Wrong!',${n > target ? 'Last guess was too high!' : 'Last guess was too low!'}`
+          guessDom.style.backgroundColor = 'red'
+          guessDom.style.display = 'block'
+          nDom.disabled = false
+          Sub.disabled = false
+          count++
+        }
+      }
+
+    }
+
+  </script>
+</body>
+
+</html>

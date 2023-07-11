@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>居中显示方法</title>
+  <style>
+    .inall .horizontal {
+      float: left;
+    }
+
+    .inall .vertical {
+      float: left;
+      margin-left: 10px;
+    }
+
+    .inall .all {
+      float: left;
+      margin-left: 10px;
+    }
+
+    /* 水平居中 */
+
+    /* 行内居中 */
+    .one {
+      width: 200px;
+      height: 200px;
+      background-color: rgb(245, 127, 127);
+
+      text-align: center;
+    }
+
+    .onece {
+      background-color: red;
+    }
+
+    /* 盒子定高宽*/
+    .two {
+      width: 200px;
+      height: 200px;
+      background-color: rgb(231, 231, 119);
+    }
+
+    .twoce {
+      width: 100px;
+      height: 100px;
+      background-color: yellow;
+
+      margin: 0 auto;
+    }
+
+    /* 盒子不定高宽 */
+    .three {
+      width: 200px;
+      height: 200px;
+      background-color: rgb(128, 128, 225);
+      text-align: center;
+    }
+
+    .threece {
+      width: 100px;
+      height: 100px;
+      background-color: blue;
+      display: inline-block;
+    }
+
+    .four {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .fource {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: green;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .five {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .fivece {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: green;
+      margin-left: 50px;
+    }
+
+    .six {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      background-color: rgb(128, 128, 225);
+      display: flex;
+      justify-content: center;
+    }
+
+    .sixce {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: blue;
+    }
+
+    /* 垂直居中 */
+    .one1 {
+      width: 200px;
+      height: 200px;
+      background-color: rgb(245, 127, 127);
+      line-height: 200px;
+      text-align: center;
+    }
+
+    .onece1 {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-color: red;
+    }
+    .two1 {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .twoce1 {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: green;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+    .three1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 200px;
+      position: relative;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .threece1 {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: green;
+    }
+    .use-transform {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .use-transform div {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: green;
+    }
+    .use-transform1 {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .use-transform1 div {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background-color: green;
+    }
+    .use-flex {
+      display: flex;
+      justify-content: center;
+      
+      align-items:  center; 
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background-color: rgb(154, 231, 154);
+    }
+
+    .use-flex div {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="inall">
+    <div class="horizontal">
+      <!-- 水平居中 -->
+      <!-- one：文字水平居中是 text-align: center
+            two: 盒子水平居中 margin：xpx auto; -->
+      <!-- 行内元素 -->
+      <!-- 首先看它的父元素是不是块级元素，如果是，则直接给父元素设置 text-align: center;  -->
+      <!-- 如果不是，则先将其父元素设置为块级元素，再给父元素设置 text-align: center; -->
+      <div class="one">
+        <span class="onece">text-align: center</span>
+      </div>
+      <!-- 块元素 -->
+      <!-- 方案1 -->
+      <!-- 定宽度：需要谁居中，给其设置 margin: 0 auto; （作用：使盒子自己居中） -->
+      <div class="two">
+        <div class="twoce">margin: 0 auto</div>
+      </div>
+      <!--  不定宽度：默认子元素的宽度和父元素一样，这时需要设置子元素为display: inline-block; 或 display: inline;即将其转换成行内块级/行内元素，给父元素设置 text-align: center;  -->
+      <div class="three">
+        <div class="threece">display: inline-block</div>
+      </div>
+      <!--方案2 定位属性 -->
+      <!-- 首先设置父元素为相对定位，再设置子元素为绝对定位，设置子元素的left:50%，即让子元素的左上角水平居中； -->
+      <!-- 定宽度：设置绝对子元素的 margin-left: -元素宽度的一半px; 或者设置transform: translateX(-50%); -->
+      <div class="four">
+        <div class="fource">margin-left</div>
+      </div>
+      <!-- 不定宽度：利用css3新增属性transform: translateX(-50%); -->
+      <div class="five">
+        <div class="fivece">translateX(-50%)</div>
+      </div>
+      <!-- 方案3 flex布局 -->
+      <!-- 使用flexbox布局，只需要给待处理的块状元素的父元素添加属性 display: flex; justify-content: center; -->
+      <div class="six">
+        <div class="sixce">justify-content: center</div>
+      </div>
+
+    </div>
+
+    <!-- 垂直居中 -->
+    <div class="vertical">
+      <!-- 设定行高（line-height） -->
+      <!-- 适用于“单行”的“行内元素” -->
+      <!-- 例如单行的标题，或是已经设为inline-block属性的div，若将line-height设成和高度一样的数值，则内容的行内元素就会被垂直居中，因为是行高，所以会在行内元素的上下都加上行高的1/2，所以就垂直居中了！ -->
+      <div class="one1">
+        <span class="onece1"></span>
+      </div>
+
+       <!-- 添加伪元素（::before、::after） -->
+      
+
+      <!-- calc动态计算 -->
+
+
+      <!-- 绝对定位 -->
+      <!-- 上下左右的数值都设为0，再搭配一个margin:auto，就可以办到垂直居中，不过要特别注意的是，设定绝对定位的子元素，其父元素的position必须要指定为relative喔！而且绝对定位的元素是会互相覆盖的，所以如果内容元素较多，可能就会有些问题。 -->
+      <div class="two1">
+        <div class="twoce1">绝对定位margin:auto</div>
+      </div>
+
+      <!-- 使用Flexbox -->
+      <!-- 使用align-items或align-content的属性，轻轻松松就可以做到垂直居中的效果。 -->
+      <div class="three1">
+        <div class="threece1">Flexbox</div>
+      </div>
+
+      <!-- transform -->
+      <!-- transform是CSS3的新属性，主要掌管元素的变形、旋转和位移，利用transform里头的translateY（改变垂直的位移，如果使用百分比为单位，则是以元素本身的长宽为基准），搭配元素本身的top属性，就可以做出垂直居中的效果，比较需要注意的地方是，子元素必须要加上position:relative，不然就会没有效果喔。 -->
+      <div class="use-transform">
+        <div>transform</div>
+      </div>
+
+      <!--  -->
+    </div>
+
+
+    <div class="all">
+    <!-- 水平垂直居中 -->
+     <!-- transform -->
+     <!-- 设置父元素为相对定位，给子元素设置绝对定位，left: 50%; top: 50%; transform: translateX(-50%) translateY(-50%)
+     -->
+    <div class="use-transform1">
+      <div>transform</div>
+    </div>
+    <!-- 使用flex布局实现 -->
+    <!-- 设置父元素为flex定位，justify-content: center; align-items: center; -->
+    <div class="use-flex">
+      <div>display: flex;</div>
+    </div>
+    </div>
+
+   
+
+  </div>
+  
+    
+    
+  
+</body>
+</html>

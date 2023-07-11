@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>垂直轮播</title>
+    <style>
+        body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+        body { background:#fff; color:#555; font-size: 16px; font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-weight:normal;}
+        a { color:#555; text-decoration:none; }
+        a:hover { text-decoration:none;}
+        img { border:none; }
+        ol,ul,li { list-style:none; }
+        input, textarea, select, button { font:14px Verdana,Helvetica,Arial,sans-serif; border: 1px solid #999; }
+        table { border-collapse:collapse; }
+        .clearFix:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+        i {
+            font-style: normal;
+        }
+ 
+ 
+        .container{
+            width: 520px;
+            height: 280px;
+            overflow: hidden;
+            margin: 100px auto;
+            position: relative;
+        }
+ 
+        .img-list{
+            height: 1960px;
+            position: absolute;
+        }
+        .img-list img{
+            width: 520px;
+            height: 280px;
+            float: left;
+        }
+        .jiantou{
+            height: 36px;
+            width: 24px;
+            line-height: 36px;
+            text-align: center;
+            font-size: 30px;
+            background-color:rgba(0, 0, 0, 0.298039);
+            color: #fff;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            display: block;
+        }
+ 
+        .left{
+            left:0;
+        }
+ 
+        .right{
+            right:0;
+        }
+ 
+        ul{
+            position: absolute;
+            width: 65px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            bottom: 15px;
+            background-color: rgba(255,255,255,.3);
+            border-radius: 10px;
+        }
+ 
+        ul li{
+            height: 9px;
+            width: 9px;
+            background-color: rgb(183, 183, 183);
+            border-radius: 50%;
+            float: left;
+            margin: 2px;
+        }
+ 
+        .select{
+            background-color: rgb(255, 68, 0);
+        }
+    </style>
+ 
+</head>
+<body>
+<div class="container" id="container">
+    <div class="img-list" id="img-list" style="top: -280px;">
+      <li><img src="../img/bg01.webp" alt="" /></li>
+      <li><img src="../img/bg02.webp" alt="" /></li>
+      <li><img src="../img/bg03.webp" alt="" /></li>
+      <li><img src="../img/bg04.webp" alt="" /></li>
+    </div>
+    <div class="left jiantou">&lt</div>
+    <div class="right jiantou">&gt</div>
+    <ul>
+        <li class="select"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<script>
+    //1获取元素操作
+    var container = document.getElementById("container");
+    var images = document.getElementById("img-list").getElementsByTagName("img");
+    var imglist = document.getElementById("img-list");
+    var left = document.getElementsByClassName("left").item(0);
+    var right = document.getElementsByClassName("right").item(0);
+    var lilist = document.getElementsByTagName("li");
+    var timer = null;
+    //小圆点的下面
+    var index = 0;
+    //判断当前动画是否执行完毕
+    var flag = true;
+ 
+ 
+    var autoplay = null;
+    //2.给右边和左边添加事件
+    right.onclick = function(event){
+        if(flag){
+            move(-280);
+            if(index == 4){
+                index = 0;
+            }else{
+                index++;
+            }
+            showball();
+        }
+    };
+ 
+    left.onclick = function(event){
+        if(flag){
+            move(280);
+            if(index==0){
+                index=4;
+            }else{
+                index--;
+            }
+            showball();
+        }
+    };
+    //3单独设置移动函数
+    function move(distance){
+        flag=false;
+        //7停下来
+        var endLoction=parseInt(imglist.style.top)+distance;
+        //4滑动的整体时间
+        var goTime = 400;
+        var interval = 10;
+        //5每次滑动的距离
+        var everyMove = distance/(goTime/interval);
+        //6不停的滑动（加定时器）
+        function getEveryMove(){
+            if(everyMove<0 && parseInt(imglist.style.top)>endLoction ||everyMove>0 && parseInt(imglist.style.top)<endLoction){
+                imglist.style.top= parseInt(imglist.style.top)+everyMove+"px";
+            }else{
+                imglist.style.top = endLoction+"px";
+                clearInterval(timer);
+                flag=true;
+                /*if(endLoction == -2600){
+                 imglist.style.left = "0px";
+                 }
+                 if(endLoction == 520){
+                 imglist.style.left = "-2080px";
+                 }*/
+ 
+ 
+                if(endLoction == -1680){
+                    imglist.style.top = "-280px";
+                }
+                if(endLoction == 0){
+                    imglist.style.top = "-1400px";
+                }
+            }
+        }
+        timer = setInterval(getEveryMove,10);
+    }
+ 
+ 
+    //小圆点
+    function showball(){
+        for(var i=0; i<lilist.length;i++){
+            if(lilist[i].className=="select"){
+                lilist[i].className ="";
+            }
+        }
+        lilist[index].className="select";
+    }
+ 
+    //点小圆点跳转
+    for(var i = 0;i<lilist.length;i++){
+        lilist[i].value =i;
+        lilist[i].onclick=function(){
+            if(this.className=="select"){
+                return;
+            }
+            //动起来
+            var distance=(this.value-index)*-280;
+            move(distance);
+            index=this.value;
+            showball();
+        }
+    }
+ 
+    function autoplaytime(){
+        autoplay = setInterval(function(){
+            right.onclick();
+        },2000)
+    }
+    autoplaytime();
+ 
+    container.onmouseout = function(){
+        autoplaytime();
+    };
+    container.onmouseover = function(){
+        clearInterval(autoplay);
+    }
+ 
+ 
+ 
+</script>
+</body>
+</html>
