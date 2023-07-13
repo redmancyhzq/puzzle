@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>methods</title>
+</head>
+<body>
+  <script>
+// Array.prototype.concat()
+//concat() 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
+    var arr = [1,2,3,4,5,6]
+    var arr1 = [7,8,9,10]
+    var arr2 = arr.concat(arr1)
+    console.log(arr2)// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    console.log(arr)//[1, 2, 3, 4, 5, 6]
+
+    const num1 = [1,2,3]
+    const num2 = [4,5,6]
+    const num3 = [7,8,9]
+    const num4 = num1.concat(num2,num3)
+    console.log(num4)//[1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const letters = ['a','b','c']
+    const num5 =[1]
+    const cat = letters.concat(num5,[2,3])
+    console.log(cat)//['a', 'b', 'c', 1, 2, 3]
+
+//Array.prototype.join()
+//join() 方法将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串，用逗号或指定的分隔符字符串分隔。如果数组只有一个元素，那么将返回该元素而不使用分隔符。
+    const arr =['Hello','how','are','you']
+    console.log(arr)
+    console.log(arr.join())//默认用逗号分隔，可指定分隔符
+    console.log(arr.join('-'))
+
+    Array.prototype.push()
+    //push() 方法将指定的元素添加到数组的末尾，并返回新的数组长度。
+    const friends = ['july','bob','mark','smith']
+    friends.push('lily','hero')
+    console.log(friends)//['july', 'bob', 'mark', 'smith', 'lily', 'hero']
+
+//Array.prototype.pop()
+//pop() 方法从数组中删除最后一个元素，并返回该元素的值。此方法会更改数组的长度。
+//Array.prototype.shift() 和 pop() 有类似的行为，但是它是作用在数组的第一个元素上的。
+//pop() 是修改方法。其改变了 this 的长度和内容。如果你想要 this 不变，但是返回一个新的最后一个元素被移除的数组，你可以使用 arr.slice(0, -1) 来代替。   
+    const baby = ['july', 'bob', 'mark', 'smith', 'lily', 'hero']
+    console.log(baby.pop())
+    console.log(baby)//['july', 'bob', 'mark', 'smith', 'lily']
+    baby.pop()
+    console.log(baby)//['july', 'bob', 'mark', 'smith']
+
+//Array.prototype.shift()
+//shift() 方法从数组中删除第一个元素，并返回该元素的值。此方法更改数组的长度。
+//shift() 方法是一个改变方法。它改变了 this 的内容和长度。如果你希望保持 this 的值不变，但返回一个删除了第一个元素的新数组，你可以使用 arr.slice(1)。
+     const arr = [1, 2, 3];
+     const firstElement = array.shift();
+     console.log(firstElement)//1
+     console.log(arr)//[2, 3]
+
+//Array.prototype.unshift()
+//unshift() 方法将指定元素添加到数组的开头，并返回数组的新长度。
+    const arr = [5,6]
+    arr.unshift(1,2,3,4)
+    console.log(arr)//[1, 2, 3, 4, 5, 6]
+
+//Array.prototype.reverse()
+//reverse() 方法就地反转数组中的元素，并返回同一数组的引用。数组的第一个元素会变成最后一个，数组的最后一个元素变成第一个。换句话说，数组中的元素顺序将被翻转，变为与之前相反的方向。
+    const arr = [1,2,3]
+    const arr1 = arr.reverse()
+    console.log(arr1)//[3, 2, 1]
+    console.log(arr)//[3, 2, 1]
+
+//Array.prototype.slice()
+//slice() 方法返回一个新的数组对象，这一对象是一个由 start 和 end 决定的原数组的浅拷贝（包括 start，不包括 end），其中 start 和 end 代表了数组元素的索引。原始数组不会被改变。
+    const arr = [1,2,3,4,5]
+    console.log(arr.slice(0,1))//[1]
+    console.log(arr.slice(1,2))//[2]
+    console.log(arr.slice(1,3))//[2, 3]
+
+// 如果索引是负数，则从数组末尾开始计算——如果 start < 0，则使用 start + array.length。
+    console.log(arr.slice(-2,4))//[4]
+// 如果 start < -array.length 或者省略了 start，则使用 0。
+    console.log(arr.slice(-6,3))//[1,2,3]
+// 如果 start >= array.length，则不提取任何元素。
+    console.log(arr.slice(6,1))//[]
+// 如果索引是负数，则从数组末尾开始计算——如果 end < 0，则使用 end + array.length。
+    console.log(arr.slice(0,-1))//[1, 2, 3, 4]
+// 如果 end < -array.length，则使用 0。
+    console.log(arr.slice(1,-6))//[]
+// 如果 end >= array.length 或者省略了 end，则使用 array.length，提取所有元素直到末尾。
+    console.log(arr.slice(3,6))//[4,5]
+// 如果 end 在规范化后小于或等于 start，则不提取任何元素。
+    console.log(arr.slice(3,2))//[]
+
+
+//Array.prototype.splice()
+//splice() 方法通过移除或者替换已存在的元素和/或添加新元素就地改变一个数组的内容。
+//要创建一个删除和/或替换部分内容而不改变原数组的新数组，请使用 toSpliced()。
+//语法 splice(start, deleteCount, item1, item2, itemN)
+    const myFish = ["angel", "clown", "drum", "mandarin", "sturgeon"];
+    //在索引 3 处移除 1 个元素
+    myFish.splice(3, 1);
+    console.log((myFish))// ['angel', 'clown', 'drum', 'sturgeon']
+    //从索引 0 处移除 2 个元素，并插入“parrot”、“anemone”和“blue”
+    myFish.splice(0,2,"parrot","anemone","blue")
+    console.log(myFish)//['parrot', 'anemone', 'blue', 'drum', 'sturgeon']
+    //从索引 -2 处移除 1 个元素
+    myFish.splice(-2,1)
+    console.log(myFish)//['parrot', 'anemone', 'blue', 'sturgeon']
+    //从索引 2 开始删除所有元素
+    myFish.splice(2)
+    console.log(myFish)//['parrot', 'anemone']
+
+//Array.prototype.every()
+//every() 方法测试一个数组内的所有元素是否都能通过指定函数的测试。它返回一个布尔值。
+    const arr=[1,70,40,20,50]
+    const isBelow = (x) => {
+        return x < 50
+    }
+    console.log(arr.every(isBelow))//false
+    //检查arr1是否是arr2的子集
+  
+    const isSubset = (arr1,arr2) => {
+        arr2.every(element => {
+            arr1.includes(element)
+        })
+    }
+    console.log(isSubset([1,2,3,4,5,6,7,8,9],[1,2,3,4]))
+    console.log([].every)
+//Array.prototype.some()
+//some() 方法测试数组中是否至少有一个元素通过了由提供的函数实现的测试。如果在数组中找到一个元素使得提供的函数返回 true，则返回 true；否则返回 false。它不会修改数组
+    const array = [1, 2, 3, 4, 5];
+    const even = (element) => element % 2 === 0;
+    console.log(array.some(even));//true
+
+    console.log([].some)
+
+//Array.prototype.forEach()
+//forEach() 方法对数组的每个元素执行一次给定的函数。返回值为undefined
+
+
+//Array.prototype.map()
+//map() 方法创建一个新数组，这个新数组由原数组中的每个元素都调用一次提供的函数后的返回值组成。
+
+
+//Array.prototype.find()
+//find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+    const number = [1, 3, 5, 7, 9];
+    const results = number.find(element => element > 5);
+    console.log(results); // 7
+
+
+//Array.prototype.findIndex()
+//findIndex() 方法返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回 -1。
+//callback函数与find方法的callback函数相同。当找到符合条件的元素时，findIndex方法会返回该元素在数组中的索引。如果没有找到符合条件的元素，则返回-1。
+    const Numbers = [1, 3, 5, 7, 9];
+    const Result = Numbers.find(element => element > 5);
+    console.log(Result); // 3
+
+//Array.prototype.indexOf()
+//indexOf() 方法返回数组中第一次出现给定元素的下标，如果不存在则返回 -1。
+    const numbers = [1, 3, 5, 7, 9];
+    const result = numbers.indexOf(7);
+    console.log(result); // 3
+
+//find findindex indexof的区别
+//find方法返回符合条件的第一个元素的值，findIndex方法返回符合条件的第一个元素在数组中的索引，而indexOf方法返回指定元素在数组中的索引。
+//find和findIndex方法都需要传入一个回调函数作为参数，该函数用来测试每个元素是否符合条件。而indexOf方法则直接传入要查找的元素作为参数。
+//如果我们需要查找符合条件的元素的值，可以使用find方法；如果需要查找符合条件的元素在数组中的索引，可以使用findIndex方法；如果只需要查找指定元素在数组中的索引，可以使用indexOf方法。
+
+
+//String.prototype.charAt()
+//str.charAt(index)
+//返回一个字符串，该字符串表示指定 index 处的字符（恰好是一个 UTF-16 码元）。如果 index 超出了 0 – str.length - 1 的范围，charAt() 将返回一个空字符串。
+    const anyString = "Brave new world";
+    console.log(`在索引 0 处的字符为 '${anyString.charAt()}'`);
+    // 没有提供索引，使用 0 作为默认值
+
+    console.log(`在索引 0 处的字符为 '${anyString.charAt(0)}'`);
+    console.log(`在索引 1 处的字符为 '${anyString.charAt(1)}'`);
+    console.log(`在索引 2 处的字符为 '${anyString.charAt(2)}'`);
+    console.log(`在索引 3 处的字符为 '${anyString.charAt(3)}'`);
+
+//要获取给定索引处的完整 Unicode 码位，请使用按 Unicode 码位拆分的索引方法，例如 String.prototype.codePointAt() 和将字符串展开为 Unicode 码位数组。
+    const str = "𠮷𠮾";
+    console.log(String.fromCodePoint(str.codePointAt(0))); // "𠮷"
+    console.log([...str][0]); // "𠮷"
+
+//String.prototype.charCodeAt()
+//返回字符串中特定位置的字符的Unicode值
+//如果 index 超出范围，charCodeAt() 返回 NaN。
+    var string = 'TechOnTheNet';
+  
+    console.log(string.charCodeAt(0));//84
+    console.log(string.charCodeAt(1));//101
+    console.log(string.charCodeAt(2));//99
+    console.log(string.charCodeAt(3));//104
+
+ //String.prototype.includes()
+ //includes() 方法执行区分大小写的搜索，以确定当前字符串是否包含被搜寻的字符串，并根据情况返回 true 或 false。
+ //includes(searchString, position)
+ //position为在字符串中开始搜索 searchString 的位置。（默认为 0。）
+    const Str = "To be, or not to be, that is the question.";
+
+    console.log(Str.includes("To be")); // true
+    console.log(Str.includes("question")); // true
+    console.log(Str.includes("nonexistent")); // false
+    console.log(Str.includes("To be", 1)); // false
+    console.log(Str.includes("TO BE")); // false
+    console.log(Str.includes("")); // true  
+
+  //String.prototype.indexOf()
+  //返回查找的字符串的第一次出现的索引,如果没有找到，则返回 -1。
+  //indexOf(searchString, position)
+     "undefined". indexof() // 0
+     "undefine".indexof() // -1
+  //position 大于调用字符串的长度,不搜索调用字符串,返回-1
+  //position 小于零,与默认一致，默认为 0
+     'hello world hello'.indexOf('o', -5) // 4
+     'hello world hello'.indexOf('world', 12) //-1
+
+//String.prototype.lastIndexOf()
+//返回指定值最后一次出现的索引 (该索引仍是以从左至右 0 开始记数的)，如果没找到则返回 -1。
+//字符串中的字符被从左向右索引。首字符的索引（index）是 0，最后一个字符的索引是 stringName.length - 1。
+    'canal'.lastIndexOf('a');     // returns 3（没有指明 fromIndex 则从末尾 l 处开始反向检索到的第一个 a 出现在 l 的后面，即 index 为 3 的位置）
+    'canal'.lastIndexOf('a', 2);  // returns 1（指明 fromIndex 为 2 则从 n 处反向向回检索到其后面就是 a，即 index 为 1 的位置）
+    'canal'.lastIndexOf('a', 0);  // returns -1(指明 fromIndex 为 0 则从 c 处向左回向检索 a 发现没有，故返回 -1)
+    'canal'.lastIndexOf('x');     // returns -1
+    'canal'.lastIndexOf('c', -5); // returns 0（指明 fromIndex 为 -5 则视同 0，从 c 处向左回向查找发现自己就是，故返回 0）
+    'canal'.lastIndexOf('c', 0);  // returns 0（指明 fromIndex 为 0 则从 c 处向左回向查找 c 发现自己就是，故返回自己的索引 0）
+    'canal'.lastIndexOf('');      // returns 5
+    'canal'.lastIndexOf('', 2);   // returns 2
+
+//String.prototype.match()
+//match() 方法检索返回一个字符串匹配正则表达式的结果。
+
+
+//String.prototype.replace()
+//replace() 方法返回一个由替换值（replacement）替换部分或所有的模式（pattern）匹配项后的新字符串。
+//如果pattern是字符串，则仅替换第一个匹配项。原字符串不会改变
+
+//String.prototype.search()
+//search() 方法执行正则表达式和 String 对象之间的一个搜索匹配。
+
+//String.prototype.slice()
+//slice() 方法提取某个字符串的一部分，并返回一个新的字符串，且不会改动原字符串。
+//str.slice(2, -1) 提取第三个字符到倒数第一个字符。
+    var str1 = 'The morning is upon us.', // str1 的长度 length 是 23。
+    str2 = str1.slice(1, 8),
+    str3 = str1.slice(4, -2),
+    str4 = str1.slice(12),
+    str5 = str1.slice(30);
+    console.log(str2); // 输出：he morn
+    console.log(str3); // 输出：morning is upon u
+    console.log(str4); // 输出：is upon us.
+    console.log(str5); // 输出：""
+
+    var string = 'The morning is upon us.';
+    string.slice(-3);     // 返回 'us.'
+    string.slice(-3, -1); // 返回 'us'
+    string.slice(0, -1);  // 返回 'The morning is upon us'
+
+//String.prototype.split()
+//split() 方法接受一个模式，通过搜索模式将字符串分割成一个有序的子串列表，将这些子串放入一个数组，并返回该数组。
+    "2:3:4:5".split(":")	//将返回["2", "3", "4", "5"]
+    "|a|b|c".split("|")	//将返回["", "a", "b", "c"]
+    "hello".split("")	//可返回 ["h", "e", "l", "l", "o"]
+    "hello".split("", 3)	//可返回 ["h", "e", "l"]
+
+//String.prototype.substring()
+//substring() 方法返回一个字符串在开始索引到结束索引之间的一个子集，或从开始索引直到字符串的末尾的一个子集。
+    var anyStrings = "Mozilla";
+
+    // 输出 "Moz"
+    console.log(anyStrings.substring(0,3));
+    console.log(anyStrings.substring(3,0));
+    console.log(anyStrings.substring(3,-3));
+    console.log(anyStrings.substring(3,NaN));
+    console.log(anyStrings.substring(-2,3));
+    console.log(anyStrings.substring(NaN,3));
+
+    // 输出 "lla"
+    console.log(anyStrings.substring(4,7));
+    console.log(anyStrings.substring(7,4));
+
+    // 输出 ""
+    console.log(anyStrings.substring(4,4));
+
+    // 输出 "Mozill"
+    console.log(anyStrings.substring(0,6));
+
+    // 输出 "Mozilla"
+    console.log(anyStrings.substring(0,7));
+    console.log(anyStrings.substring(0,10));
+
+
+  </script>
+
+</body>
+</html>

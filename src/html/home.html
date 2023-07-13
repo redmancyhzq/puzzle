@@ -395,7 +395,7 @@
     <div class="table">
       <div class="tab_list">
         <ul>
-          <li class="current">
+          <li class="active">
             <img src="../img/faicon.webp" class="imgs"/>
           </li>
           <li >
@@ -440,39 +440,86 @@
 
     var lis = document.querySelectorAll('li');
     var items = document.querySelectorAll('.item')
-   
+
+    function activeFn() {
+      for (var i = 0; i < lis.length; i++) {
+        lis[i].setAttribute('data-index', i)
+        
+        var index = lis[i].getAttribute('data-index')
+        let isActive = lis[i].classList.contains("active")
+        let lisActive = document.getElementsByClassName('active');
+        console.log(isActive, "isActive", lisActive);
+        // if (!isActive) {
+          if (!isActive && index == 0){  // 女生-可莉
+            var oImg = document.getElementsByClassName("imgs")[0];
+            oImg.onmouseover = function() {
+              oImg.src="../img/faicon2.webp";
+            }
+            oImg.onmouseout = function() {
+              oImg.src="../img/faicon.webp"
+            }
+          } else if (!isActive && index == 1) {
+            var oImg1 = document.getElementsByClassName("imgs")[1];
+            oImg1.onmouseover = function() {
+              oImg1.src="../img/faicon1.webp";
+            }
+            oImg1.onmouseout = function() {
+              oImg1.src="../img/faicon3.webp"
+            }
+          }
+        // }
+      }
+    }
+    
     for (var i = 0; i < lis.length; i++) {
       lis[i].setAttribute('data-index', i)
-      console.log(lis[i]);
-      if (lis[i] = 1){
-        var oImg = document.getElementsByClassName("imgs")[0];
-        oImg.onmouseover = function() {
-          oImg.src="../img/faicon2.webp";
+      this.activeFn();
+      const self  = this;
+      /* var index = lis[i].getAttribute('data-index')
+      let isActive = lis[i].classList.contains("active")
+
+      if (!isActive) {
+        if (index == 0){  // 女生-可莉
+          var oImg = document.getElementsByClassName("imgs")[0];
+          oImg.onmouseover = function() {
+            oImg.src="../img/faicon2.webp";
+          }
+          oImg.onmouseout = function() {
+            oImg.src="../img/faicon.webp"
+          }
+        } else {
+          var oImg1 = document.getElementsByClassName("imgs")[1];
+          oImg1.onmouseover = function() {
+            oImg1.src="../img/faicon1.webp";
+          }
+          oImg1.onmouseout = function() {
+            oImg1.src="../img/faicon3.webp"
+          }
         }
-        oImg.onmouseout = function() {
-          oImg.src="../img/faicon.webp"
-        }
-      }if (lis[i] = 0){
-        var oImg1 = document.getElementsByClassName("imgs")[1];
-        oImg1.onmouseover = function() {
-          oImg1.src="../img/faicon1.webp";
-        }
-        oImg1.onmouseout = function() {
-          oImg1.src="../img/faicon3.webp"
-        }
-      }
+      } */
+      
       lis[i].onclick = function () {
         for (var i = 0; i < lis.length; i++) {
-          lis[i].className = ''
+          lis[i].classList.remove("active")
         }
-        this.className = 'current'
+        // this.className = 'current'
+        this.classList.add("active")
         
-
         var index = this.getAttribute('data-index')
         for (var j = 0; j < items.length; j++) {
             items[j].style.display = 'none'
+            
         }
-            items[index].style.display = 'block'
+        
+        items[index].style.display = 'block'
+        if (index == 0) {
+          var oImg = document.getElementsByClassName("imgs")[0];
+          oImg.src="../img/faicon.webp";
+        } else {
+          var oImg1 = document.getElementsByClassName("imgs")[1];
+          oImg1.src="../img/faicon3.webp";
+        }
+        self.activeFn()
       }
     }
 
