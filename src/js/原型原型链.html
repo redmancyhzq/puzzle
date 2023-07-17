@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原型原型链</title>
+</head>
+
+<body>
+  <script>
+    //所有的函数都有一个prototype的属性
+    //每个对象都有一个特殊的内置属性 [[prototype]]  
+    //获取方法 Person.__proto__或者Object.getPrototypeOf(Person)
+
+    //字面量创建一个对象,
+    var Person = {
+      name: "lily",
+      age: 18,
+      //es5写法
+      walk: function () {
+        //debugger
+        console.log(Person.name + ' can walk!');
+      },
+      //es6写法
+      drink() {
+        //debugger
+        console.log(Person.name + ' is drinking!');
+      },
+      eat: () => {
+        //debugger
+        console.log(Person.name + ' is eating!');
+      }
+    }
+    Person.walk()
+    Person.drink()
+    Person.eat()
+
+    var e = Object.getPrototypeOf(Person)
+    console.log(e);
+
+    //class创建
+    //class 创建一个对象,这是语法糖，最终浏览器是按function的语法处理
+    class Student {
+      constructor(name, age) {
+        this.name = name
+        this.age = age
+      }
+      //这种写法this是在运行时挂载在原型上面的
+      walk() {
+        //debugger
+        console.log(this.name, 'is walking');
+      }
+
+      // 以下草案阶段的语法
+      // 我们在vue、react 项目中可以使用这种语法
+      // 原因是在项目脚手架中集成了babel (语法降级工具，将使用高级语法（es6、es7）写的代码，转换为低级语法（es5），使其能够兼容更多的浏览器运行环境)
+
+      //运行时this是挂载在实例对象上面的
+      eat = function () {
+        //debugger
+        console.log(this.name, 'is eating');
+      }
+      //下面这个this是在声明时候绑定的，如果有this，则绑定this
+      drink = () => {
+        //debugger
+        console.log(this.name, 'is drinking');////有this，this就绑定为Student，如果没有this，就是undefined
+      }
+    }
+
+    //wangWu对象是挂在在window对象上的
+    var wangWU = new Student('wangWU', 17)
+    wangWU.walk()
+    wangWU.eat()
+    wangWU.drink()
+    //函数中 call，bind，apply方法都可用在函数在运行时改变this指向的
+    //wangWU.drink.call(wangWU)
+
+    var liSi = new Student('liSi', 15)
+    liSi.walk()
+    liSi.eat()
+    liSi.drink()
+
+    //wangWU和liSi的walk是挂在原型上面的，用的是同一个walk，共用一个内存
+    //这样的好处是让每一个实例对象都能共享相同的函数，以节省内存空间
+
+    //class语法糖其实是按以下function模式运行
+    function Cat (name) {
+      this.name = name 
+      this.eat = function() {
+        console.log(this.name,'is eating');
+      }
+      this.drink = ()=> {
+        console.log(this.name,'is drinking');
+      }
+    }
+    Cat.prototype.walk = function () {
+        console.log(this.name,'is walking');
+   }
+    var kitty = new Cat('kitty')
+    kitty.eat()
+    kitty.drink()
+    kitty.walk()
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function foo() {
+
+    }
+    console.log(foo.prototype);
+    var obj = {}
+    console.log(obj.prototype);//undefined
+    //对象的内置属性[[prototype]]获取的两种方式
+    console.log(obj.__proto__);
+    console.log(Object.getPrototypeOf(obj));
+
+    function Person () {}
+    var p1 = new Person()
+    var p2 = new Person()
+    console.log(p1.__proto__ === p2.__proto__);//true
+    console.log(p1.__proto__ === Person.prototype);//true
+  </script>
+</body>
+</html>
