@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>表单验证</title>
+</head>
+<body>
+  <div>
+    <form  name="myForm" onsubmit="return validDataForm(this)" method="post" action="demo_form.php">
+      姓名：<input name='fname' type="text"/>
+      电话：<input name='fname' type="text"/>
+      地址：<input name='fname' type="text"/>
+      
+      <input value="提交" type="submit">
+    </form>
+  </div>
+  <br>
+  <div>
+    <form  name="myForms" onsubmit="return judgeNameForm()" method="post" action="demo_form.php">
+      姓名：<input name='fname' type="text"/>
+      <input value="提交" type="submit">
+    </form>
+  </div>
+  <br>
+  <div>
+    <form  name="myEmail" onsubmit="return judgeEMailForm()" method="post" action="demo_form.php">
+      电子邮箱<input name='fEmail' type="text"/>
+      <input value="提交" type="submit">
+    </form>
+  </div>
+  <script>
+    //必填或必选项
+    function validDataForm(form) {
+      var x = form.name.value
+      if(x == null || x == ''){
+        alert('输入不能为空!')
+        return false
+      }
+    }
+    function judgeNameForm() {
+      var x = document.forms['myForms']['fname'].value
+      var patter = /\s+/ //至少一个空格
+      if( x == null || patter.test(x)) {
+        alert('输入不能为空!')
+        return false
+      }
+    }
+    function judgeEMailForm() {
+      var x = document.forms['myEmail']['fEmail'].value
+      var atPots = x.indexof('@')
+      var dotPot = x.lastIndexOf('.')
+      if( x == null || atPots < 1 || dotPot < atPots + 2 || dotPot + 2 >= x.length )   {
+        alert('输入不能为空!')
+        return false
+      }
+    }
+
+    // E-mail 验证
+
+
+  </script>
+</body>
+</html>
