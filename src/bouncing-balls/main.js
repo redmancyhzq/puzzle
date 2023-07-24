@@ -25,9 +25,11 @@ function randomColor() {
 //实例化小球构造器
 function Ball(x, y, velX, velY, color, size) {
   //坐标的范围从 0（左上角）到浏览器视口的宽和高（右下角）。
+  
   this.x = x;
   this.y = y;
   //水平和竖直速度
+  //宽为x的正轴，高为y的负轴
   this.velX = velX
   this.velY =velY
   this.color = color
@@ -37,14 +39,7 @@ function Ball(x, y, velX, velY, color, size) {
 
 //绘制小球函数
 Ball.prototype.draw = function() {
-  //声明开始
-  ctx.beginPath()
-  //fillStyle定义颜色
-  ctx.fillStyle = this.color
-  //arc()方法用来画一段狐，参数为圆心，半径，弧的范围（这里圆是0-2PI）
-  ctx.arc(this.x,this.y,this.size,0,2 * Math.PI)
-  //声明结束
-  ctx.fill()
+  
 }
 
 //实例化小球
@@ -97,8 +92,8 @@ while(balls.length < 25) {
     // 为避免绘制错误，球至少离画布边缘球本身一倍宽度的距离
     random(0 + size, width - size),
     random(0 + size, height - size),
-    random(-1, 7),
-    random(-1, 7),
+    random(1, ),
+    random(1, -7),
     randomColor(),
     size
   );
