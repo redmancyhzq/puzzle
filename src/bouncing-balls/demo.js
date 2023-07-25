@@ -14,7 +14,22 @@
  * game.start();
  */
 
- class Ball {
+// 生成随机数的函数
+
+function random(min, max) {
+  const num = Math.floor(Math.random() * (max - min)) + min;
+  return num
+}
+
+// 生成随机颜色
+function randomColor() {
+  const color = 'rgb(' +
+    random(0, 255) + ',' +
+    random(0, 255) + ',' +
+    random(0, 255) + ')';
+  return color;
+}
+class Ball {
   constructor(x, y, velX, velY, color, size) {
     this.x = x,
       this.y = y,
@@ -26,36 +41,9 @@
       //半径
       this.size = size
   }
-  // 生成随机数的函数
 
-  random(min, max) {
-    const num = Math.floor(Math.random() * (max - min)) + min;
-    return num;
-  }
 
-  // 生成随机颜色
-  randomColor() {
-    const color = 'rgb(' +
-      random(0, 255) + ',' +
-      random(0, 255) + ',' +
-      random(0, 255) + ')';
-    return color;
-  }
-  init() {
-    const size = this.random(10, 20)
-    while (balls.length < 25) {
-      let ball = new Ball(
-        random(size, width - size),
-        random(size, height - size),
-        10,
-        1,
-        randomColor(),
-        size
-      )
-      balls.push(ball)
-    }
-  }
-  draw() {
+  draw(ctx) {
     //声明开始
     ctx.beginPath()
     //fillStyle定义颜色
@@ -66,7 +54,7 @@
     ctx.fill()
   }
   //边缘检测和更新
-  update() {
+  update(width,height) {
     if (this.x + this.size >= width) {
       this.velX = -(this.velX)
     }
@@ -82,7 +70,8 @@
     this.x = this.x + this.velX
     this.y = this.y + this.velY
   }
-  collisionDetect() {
+  //碰撞检测
+  collisionDetect(balls) {
     for (let i = 0; i < balls.length; i++) {
       if (this !== balls[i]) {
         let dx = this.x - balls[i].x
@@ -97,57 +86,56 @@
         }
       }
     }
-
   }
-  startDraw() {
-    loop()
-    init()
-    startDraw()
+
+
+
+}
+
+class Game {
+  width = window.innerWidth;
+  height = window.innerHeight;
+
+  balls = []
+  constructor() {
+    const canvas = document.querySelector('canvas');
+    this.ctx = canvas.getContext('2d');
+    canvas.width = this.width
+    canvas.height = this.height
+  }
+  init() {
+    const size = random(10, 20)
+    while (this.balls.length < 25) {
+      let ball = new Ball(
+        random(size, this.width - size),
+        random(size, this.height - size),
+        10,
+        1,
+        randomColor(),
+        size
+      )
+      this.balls.push(ball)
+    }
   }
   loop() {
     //清理画布
     //将整个画布的颜色设置成半透明的黑色,以看到小球运动轨迹
-    ctx.fillStyle = 'rgba(0,0,0,0.15)';
+    this.ctx.fillStyle = 'rgba(0,0,0,0.15)';
     //fillRect()（这四个参数分别是起始的坐标、绘制的矩形的宽和高）画出一个填充满整个画布的矩形
     //这是在下一个视图画出来时用来遮住之前的视图的
-    ctx.fillRect(0, 0, width, height);
-    for (let i = 0; i < balls.length; i++) {
-      balls[i].draw()
-      balls[i].update()
-      balls[i].collisionDetect()
+    this.ctx.fillRect(0, 0, this.width, this.height);
+    for (let i = 0; i < this.balls.length; i++) {
+      this.balls[i].draw(this.ctx)
+      this.balls[i].update(this.width,this.height)
+      this.balls[i].collisionDetect(this.balls)
     }
-    requestAnimationFrame(loop)
-  }
-  
- 
-}
-
-
-class Game extends Ball {
-  init() {
-    // 设置画布
-
-    const canvas = document.querySelector('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const width = canvas.width = window.innerWidth;
-    const height = canvas.height = window.innerHeight;
-
-    var balls = []
-
-    super.init()
-    
+    requestAnimationFrame(() => this.loop())
   }
   start() {
-    super.draw()
-    super.update()
-    super.collisionDetect()
-    super.startDraw()
-    super.loop()
-
+    this.loop()
   }
-}
 
+}
 var gameBegin = new Game()
 gameBegin.init()
 gameBegin.start()

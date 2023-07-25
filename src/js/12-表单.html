@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form表单</title>
+  <style>
+    .user_form {
+      width: 600px;
+      height: 380px;
+      border: 1px solid black;
+      border-radius: 30px;
+      display: block;
+      margin: 0 auto;
+      position: relative;
+    }
+    form {
+      width: 450px;
+      height: 320px;
+      position: absolute;
+      top: 50%;
+      left:50%;
+      transform: translate(-50%,-50%);
+    }
+    label {
+      display: inline-block;
+      width: 80px;
+      text-align: right;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+    li {
+      list-style: none;
+      margin-bottom: 20px;
+      line-height: 30px;
+    }
+    input,textarea {
+      width: 250px;
+      height: 30px;
+      font-family:Arial, Helvetica, sans-serif;
+      /* 确保元素高度不会超过父容器 */
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    textarea {
+      /* 使行内元素盒模型与其行内元素容器垂直对齐 */
+      vertical-align: text-top;
+      height: 5em;
+    }
+    .button {
+      margin-left: 84px;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="user_form">
+    <form id="form">
+      <ul>
+        <li>
+          <label> Name:</label>
+          <input type="text" id="name" name="user_name" placeholder="请输入1-10个英文字符" min/>
+          <span class="error"></span>
+        </li>
+        <li>
+          <label> E-mail:</label>
+          <input type="email" id="mail" name="user_email" placeholder="请输入正确的邮箱名"/>
+          <span></span>
+        </li>
+        <li>
+          <label> Message:</label>
+          <textarea type="text" id="msg" name="user_Message" placeholder="请输入1-20个文本描述"></textarea>
+          <span></span>
+        </li>
+        <li>
+          <button class="button" type="submit">Send your message</button>
+        </li>
+      </ul>
+    </form>
+    
+  </div>
+   <div>
+    <span id="userData"></span>
+   </div>
+  <script>
+    //表单的校验和提交
+    var arr = []
+    // var userNameDom = document.getElementById('name')
+    // var userEmailDom = document.getElementById('mail')
+    // var userMsg = document.getElementById('msg')
+    var formDom = document.getElementById('form')
+    var userData = document.getElementById('userData')
+    // userEmailDom.addEventListener('input',
+    //   function (e) {
+    //     // 当用户输入信息时，校验 email 字段
+    //     if(userEmailDom.validity.valid) {
+    //       //如果校验通过
+    //     }
+    //   }
+    // )
+    formDom.addEventListener('submit',
+      //回调函数
+      function(e) {
+        //阻止浏览器的默认行为
+        e.preventDefault()
+        
+        var data = {
+          userName: this.user_name.value,
+          userEmail: this.user_email.value,
+          userMsg: this.user_Message.value
+        }
+        arr.push(data)
+        //展示数据
+        var str = '<span>'
+        str += arr.map( x => `${x.userName} ${x.userEmail} ${x.userMsg}`)
+        str += '</span>'
+        userData.innerHTML = str
+        console.log(data);
+        console.log(str);
+        //提交数据后重置表单
+        formDom.reset()
+      },
+      false
+    )
+  </script>
+</body>
+</html>
