@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+      font-size: 1.12rem;
+      position: relative;
+
+    }
+
+    .title {
+      height: 53px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #e2e2e2;
+      background-color: #f8f8fe;
+
+    }
+
+    .title span a {
+      text-decoration: none;
+    }
+
+    .content {
+      height: 70px;
+      border-bottom: 1px solid #e2e2e2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      float: left;
+      clear:both;
+    }
+
+    img {
+      width: 200px;
+      height: 70px;
+      margin-left: 30px;
+      float: left;
+    }
+
+    ul li {
+      list-style: none;
+    }
+
+    .plat {
+      display: none;
+      border: 1px solid #dddddd;
+      width: 250px;
+      position: absolute;
+      background-color: #fbfbfb;
+      border-radius: 10px;
+    }
+
+    .nav:hover .plat {
+      display: block;
+    }
+
+    .nav {
+      float: left;
+      position: relative;
+      margin: 0 auto 0 0;
+    }
+
+    /* .text {
+      display: flex;
+      justify-content: center;
+      align-items:  center; 
+    } */
+    .nav a {
+      display: inline-flex;
+      border-radius: 10px;
+    }
+
+    .nav a:hover {
+      background-color: pink;
+    }
+
+    .plat li {
+      margin-top: 10px;
+    }
+
+    .plat span {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .plat p {
+      font-size: 13px;
+    }
+
+    .plat li:hover {
+      background-color: #fcf6f6;
+    }
+
+  </style>
+</head>
+
+<body>
+  
+    <div class="title">
+      <span>Get real-time assistance with your coding queries. Try<a href="#"> AI Help </a>now!</span>
+    </div>
+    <div class="content">
+      <img src="../img/fig.png" />
+      <ul class="nav">
+        <a class="text">References</a>
+        <ul class="plat">
+          <li>
+            <span>HTML</span>
+            <p>Structure of content on the web</p>
+          </li>
+          <li>
+            <span>CSS</span>
+            <p>Code used to describe document style</p>
+          </li>
+          <li>
+            <span>JavaScript</span>
+            <p>General-purpose scripting language</p>
+          </li>
+          <li>
+            <span>HTTP</span>
+            <p>Protocol for transmitting web resources</p>
+          </li>
+          <li>
+            <span>Web APIs</span>
+            <p>Interfaces for building web applications</p>
+          </li>
+        </ul>
+      </ul>
+      <ul class="nav">
+        <a class="text">Guides</a>
+        <ul class="plat">
+          <li>
+            <span>MDN Learning Area</span>
+            <p>Learn web development</p>
+          </li>
+          <li>
+            <span>HTML</span>
+            <p>Learn to structure web content with HTML</p>
+          </li>
+          <li>
+            <span>CSS</span>
+            <p>Learn to style content using CSS</p>
+          </li>
+          <li>
+            <span>JavaScript</span>
+            <p>Learn to run scripts in the browser</p>
+          </li>
+        </ul>
+      </ul>
+      <ul class="nav">
+        <a class="text">Plus</a>
+        <ul class="plat">
+          <li>
+            <span>Overview</span>
+            <p>A customized MDN experience</p>
+          </li>
+          <li>
+            <span>AI Help (beta)</span>
+            <p>Get real-time assistance and support</p>
+          </li>
+          <li>
+            <span>Updates</span>
+            <p>All browser compatibility updates at a glance</p>
+          </li>
+          <li>
+            <span>Documentation</span>
+            <p>Learn how to use MDN Plus</p>
+          </li>
+        </ul>
+      </ul>
+      <ul class="nav">Blog</ul>
+      <ul class="nav">Play</ul>
+      <ul class="nav">AI Help</ul>
+    </div>
+  
+    
+ 
+</body>
+
+</html>

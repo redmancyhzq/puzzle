@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .dialog {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.3)
+    }
+    .container {
+      width: 50%;
+      height: 30%;
+      background-color: #f7f7f7;
+      border: 1px solid #888;
+      border-radius: 5px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 13% auto;
+      font-size: 18px;
+    }
+    .close {
+      position: absolute;
+      top: 0;
+      right: 10px;
+      color: #aaa;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .close:hover {
+      color: black;
+    }
+    .btn{
+      position: absolute;
+      width: 100px;
+      height: 40px;
+      border: none;
+      bottom: 20px;
+      background-color: #f7f7f7;
+      color: rgb(64, 165, 233);
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+    <button id="open" onclick=showDialog()>
+      提示弹窗
+    </button>
+    <div id= "myDialog" class="dialog">
+      <div class="container">
+        <span class="close" onclick="closeDialog()">&times;</span>
+        <p>唏哩呼噜睡大觉...</p>
+        <button class="btn" onclick="closeDialog()">确认</button>
+      </div>
+    </div>
+
+    <script>
+      var openDom = document.getElementById('open')
+      var myDialogDom = document.getElementById('myDialog')
+      var closeDom = document.getElementById('open')
+
+      function showDialog() {
+        myDialog.style.display = 'block'
+      }
+      function closeDialog() {
+        myDialog.style.display = 'none'
+      }
+    </script>
+</body>
+
+</html>

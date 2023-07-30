@@ -1,0 +1,70 @@
+<html>
+<title>弹出窗口</title>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        function popDiv(){
+            // 获取div元素
+            var popBox = document.getElementById("popDiv");
+            var popLayer = document.getElementById("popLayer");
+
+            // 控制两个div的显示与隐藏
+            popBox.style.display = "block";
+            popLayer.style.display = "block";
+        }
+
+        function closePop(){
+            // 获取弹出窗口元素
+            let popDiv = document.getElementById("popDiv");
+
+            popDiv.style.display = "none";
+        }
+    </script>
+    <style type="text/css">
+        body{
+            background-color: cyan;
+        }
+        #popDiv{
+            display: none;
+            background-color: crimson;
+            z-index: 11;
+            width: 600px;
+            height: 600px;
+            position:fixed;
+            top:0;
+            right:0;
+            left:0;
+            bottom:0;
+            margin:auto;
+        }
+        /* 关闭按钮样式 */
+        #popDiv .close a {
+            text-decoration: none;
+            color: #2D2C3B;
+        }
+        /* 弹出界面的关闭按钮 */
+        #popDiv .close{
+            text-align: right;
+            margin-right: 5px;
+            background-color: #F8F8F8;
+        }
+        #popDiv p{
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="popLayer">
+        <button onclick="popDiv();">弹窗</button>
+    </div>
+
+    <div id="popDiv">
+        <div class="close">
+            <a href="javascript:void(0)" onclick="closePop()">关闭</a>
+        </div>
+            <p>此处为弹出窗口</p>
+    </div>
+</body>
+</html>

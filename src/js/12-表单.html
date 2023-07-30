@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,69 +8,117 @@
   <title>Form表单</title>
   <style>
     .user_form {
-      width: 600px;
-      height: 380px;
+      width: 750px;
+      height: 600px;
       border: 1px solid black;
       border-radius: 30px;
       display: block;
       margin: 0 auto;
       position: relative;
     }
+
     form {
-      width: 450px;
-      height: 320px;
+      width: 550px;
+      height: auto;
       position: absolute;
       top: 50%;
-      left:50%;
-      transform: translate(-50%,-50%);
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
+
     label {
       display: inline-block;
-      width: 80px;
+      width: 140px;
       text-align: right;
     }
+
     ul {
       margin: 0;
       padding: 0;
     }
+
     li {
       list-style: none;
       margin-bottom: 20px;
       line-height: 30px;
     }
-    input,textarea {
+
+    input,
+    textarea,
+    select {
       width: 250px;
       height: 30px;
-      font-family:Arial, Helvetica, sans-serif;
+      font-family: Arial, Helvetica, sans-serif;
       /* 确保元素高度不会超过父容器 */
       -moz-box-sizing: border-box;
       box-sizing: border-box;
     }
+
     textarea {
       /* 使行内元素盒模型与其行内元素容器垂直对齐 */
       vertical-align: text-top;
       height: 5em;
     }
+
     .button {
-      margin-left: 84px;
+      margin-left: 144px;
     }
-    
+
+    .college_address select {
+      width: 110px;
+      margin-right: 10px;
+      vertical-align: text-top;
+    }
   </style>
 </head>
+
 <body>
   <div class="user_form">
     <form id="form">
       <ul>
         <li>
           <label> Name:</label>
-          <input type="text" id="name" name="user_name" placeholder="请输入1-10个英文字符" min/>
+          <input type="text" id="name" name="user_name" placeholder="请输入1-10个英文字符" min />
           <span class="error"></span>
         </li>
         <li>
           <label> E-mail:</label>
-          <input type="email" id="mail" name="user_email" placeholder="请输入正确的邮箱名"/>
+          <input type="email" id="mail" name="user_email" placeholder="请输入正确的邮箱名" />
           <span></span>
         </li>
+        <li>
+          <label> is in college:</label>
+          <input type="checkbox" id="inCollege" placeholder="请选择你是否在读大学" />
+          <span></span>
+        </li>
+        <div id="userCollegeField" style="display: none;">
+          <li>
+            <label>education:</label>
+            <select id="college_stage">
+              <option value="">--请选择学历--</option>
+              <option value="本科">本科</option>
+              <option value="专科">专科</option>
+            </select>
+          </li>
+          <li>
+            <label>college name:</label>
+            <select id="undergraduate_sch">
+              <option selected disabled hidden value="">--请选择所读大学--</option>
+            </select>
+          </li>
+          <li class="college_address">
+            <label>college address:</label>
+            <select id="college_province">
+              <option selected disabled hidden value="">--请选择省份--</option>
+            </select>
+            <select id="college_city">
+              <option selected disabled hidden>--请选择市区--</option>
+            </select>
+            <select id="college_town">
+              <option selected disabled hidden>--请选择城镇--</option>
+            </select>
+          </li>
+        </div>
         <li>
           <label> Message:</label>
           <textarea type="text" id="msg" name="user_Message" placeholder="请输入1-20个文本描述"></textarea>
@@ -80,19 +129,84 @@
         </li>
       </ul>
     </form>
-    
+
   </div>
-   <div>
+  <div>
     <span id="userData"></span>
-   </div>
+  </div>
   <script>
     //表单的校验和提交
     var arr = []
-    // var userNameDom = document.getElementById('name')
-    // var userEmailDom = document.getElementById('mail')
-    // var userMsg = document.getElementById('msg')
+    var regionData = [
+      {
+        value: '江西',
+        label: '江西',
+        children: [
+          {
+            value: '赣州',
+            label: '赣州',
+            children: [
+              {
+                value: '南康区',
+                label: '南康区',
+              },
+              {
+                value: '大余县',
+                label: '大余县',
+              },
+            ],
+          },
+          {
+            value: '新余',
+            label: '新余',
+            children: [
+              {
+                value: '渝水区',
+                label: '渝水区',
+              },
+              {
+                value: '分宜县',
+                label: '分宜县',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        value: '江苏',
+        label: '江苏',
+        children: [
+          {
+            value: '南京',
+            label: '南京',
+            children: [
+              {
+                value: '中华门',
+                label: '中华门',
+              },
+              {
+                value: '玄武区',
+                label: '玄武区',
+              },
+              {
+                value: '浦口区',
+                label: '浦口区',
+              },
+            ],
+          },
+        ],
+      },
+    ];
     var formDom = document.getElementById('form')
     var userData = document.getElementById('userData')
+    var inCollegeDom = document.getElementById('inCollege')
+    var userCollegeFieldDom = document.getElementById('userCollegeField')
+    var collegeStageDom = document.getElementById('college_stage')
+    var collegeNameDom = document.getElementById('undergraduate_sch')
+    var collegeProvinceDom = document.getElementById('college_province')
+    var collegeCityDom = document.getElementById('college_city')
+    var collegeTownDom = document.getElementById('college_town')
+
     // userEmailDom.addEventListener('input',
     //   function (e) {
     //     // 当用户输入信息时，校验 email 字段
@@ -103,10 +217,10 @@
     // )
     formDom.addEventListener('submit',
       //回调函数
-      function(e) {
+      function (e) {
         //阻止浏览器的默认行为
         e.preventDefault()
-        
+
         var data = {
           userName: this.user_name.value,
           userEmail: this.user_email.value,
@@ -115,16 +229,105 @@
         arr.push(data)
         //展示数据
         var str = '<span>'
-        str += arr.map( x => `${x.userName} ${x.userEmail} ${x.userMsg}`)
+        str += arr.map(x => `${x.userName} ${x.userEmail} ${x.userMsg}`)
         str += '</span>'
         userData.innerHTML = str
-        console.log(data);
-        console.log(str);
+
         //提交数据后重置表单
         formDom.reset()
       },
       false
     )
+    inCollegeDom.addEventListener('change',
+      function (e) {
+        userCollegeFieldDom.style.display = e.target.checked ? 'block' : 'none'
+        // formDom.collegeStageDom.value = e.target.checked ? formDom.college_stage.value : ''
+        // formDom.collegeNameDom.value = e.target.checked ? formDom.undergraduate_sch.value : ''
+      },
+      false
+    )
+    collegeStageDom.addEventListener('change',
+      (e) => {
+        if (e.target.value === '本科') {
+          collegeNameDom.innerHTML = `<option selected disabled hidden>请选择本科学校</option>
+                                      <option value="新余学院">新余学院</option>
+                                      <option value="江西工程学院">江西工程学院</option>`
+        }
+        if (e.target.value === '专科') {
+          collegeNameDom.innerHTML = `<option selected disabled hidden>请选择专科学校</option>
+                                      <option value="江西工程学院">江西工程学院</option>
+                                      <option value="江西冶金职业技术学院">江西冶金职业技术学院</option>`
+        }
+      },
+      false
+    )
+    //初始化展示数据
+    function init() {
+      let str = `<option selected disabled hidden>--请选择省份--</option>`
+      regionData.forEach((x) => {
+        str += `<option value="${x.value}">${x.label}</option>`
+      })
+      collegeProvinceDom.innerHTML = str
+    }
+    init()
+    collegeProvinceDom.addEventListener('change',
+      function (e) {
+        if (e.target.value !== '') {
+          for (let i = 0; i < regionData.length; i++) {
+            if (regionData[i].value === e.target.value) {
+              let str = `<option selected disabled hidden>--请选择市区--</option>`
+              regionData[i].children.forEach(x => {
+                str += `<option value="${x.value}">${x.label}</option>`
+              })
+              collegeCityDom.innerHTML = str
+            }
+          }
+        }
+      },
+      false
+    )
+    function findIndex(val, arr) {
+      for (let index = 0; index < arr.length; index++) {
+        const item = arr[index];
+        if (item.value === val) {
+          return item.children || []
+        }else{
+          while(Array.isArray(item.children) && item.children.length > 0) {
+            return findIndex(val, item.children)
+          }
+        }
+        
+      }
+    }              
+    collegeCityDom.addEventListener('change',
+      function (e) {
+        //三层for循环不推荐使用
+        // for (let i = 0; i < regionData.length; i++) {
+        //   for (let j = 0; j < regionData[i].children.length; j++) {
+        //     if (e.target.value == regionData[i].children[j].value) {
+        //       let str = `<option selected disabled hidden>--请选择城镇--</option>`
+        //       regionData[i].children[j].children.forEach((x) => {
+        //         str += `<option value="${x.value}">${x.label}</option>`
+        //       })
+        //       collegeTownDom.innerHTML = str
+        //     }
+        //   }
+        // }
+
+        //用递归函数调用
+        debugger
+
+        let childrenArr = findIndex(e.target.value, regionData)
+          let str = `<option selected disabled hidden>--请选择城镇--</option>`
+          childrenArr.forEach((x) => {
+            str += `<option value="${x.value}">${x.label}</option>`
+          })
+          collegeTownDom.innerHTML = str
+        
+      },
+      false
+    )
   </script>
 </body>
+
 </html>
