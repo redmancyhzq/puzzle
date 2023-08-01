@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <link rel="stylesheet" href="../css/fontclass/iconfont.css">
+  <title>shoppingList</title>
+</head>
+
+<body>
+  <div id="app" class="wrapper">
+    <div class="content">
+      <div class="header">
+        <div class="title">
+          <a class="shopping-bus">购物车</a>
+          <a class="iconfont icon-add-s" style="right: 16px; position: absolute;margin:10px 10px" @click="addGoods"></a>
+        </div>
+        <div class="all-list">
+          <span>全部 {{goodsData.length}}</span>
+        </div>
+      </div>
+      <div class="top-placeholder"></div>
+      <div class="shopping-list" v-for="(items,idnex) in goodsData" :key="items.id">
+        <div class="shop">
+          <input type="checkbox" v-model="items.isCheck">
+          <label>{{items.shopName}} ></label>
+          <div class="coupons-title">
+            <label class="coupons">满减</label>
+            <span>满1件总价9.7折</span>
+            <label class="tips">去凑单></label>
+          </div>
+        </div>
+        <div class="list">
+          <input type="checkbox" class="check" v-model="items.isCheck">
+          <div class="img">
+            <img :src="items.src" />
+          </div>
+          <div class="goods-detail">
+            <span class="goods-name">{{items.goodsName}}</span>
+            <div class="goods-specification">{{items.goodsSpecification}}</div>
+            <div class="shop-name">京东超市</div>
+            <div class="price">￥<span style="font-size: 18px;">{{items.firstPice}}</span>.{{items.lastPrice}}</div>
+            <div class="quantity">
+              <div @click="subNum(items.id)" style="margin: 0 10px;">-</div>
+              <div class="middle">{{items.num}}</div>
+              <div @click="addNum(items.id)" style="margin: 0 10px;">+</div>
+            </div>
+            <div class="final-price">预估到手价 ￥{{items.finalPrice}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="check-all">
+        <input type="checkbox" v-model="isAll" @click="checkAllGoods()">
+        <span>全选</a>
+      </div>
+      <div class="total-price">合计￥{{sumPrice}}</div>
+      <div class="settlement">去结算({{sumValue}})</div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    Vue.config.productionTip = false;
+    const app = new Vue({
+
+      el: '#app',
+      data: {
+        goodsData: [
+          {
+            shopName: 'JD G7咖啡京东自营旗舰店',
+            goodsName: '中原G7三合一速溶咖啡1600g',
+            goodsSpecification: '【越文版】16g*100条, 选服务',
+            finalPrice: '83.32',
+            num: 1,
+            isCheck: false,
+            src: '../img/coffee.jpg',
+            firstPice: '85',
+            lastPrice: '90',
+            id: Math.random()
+          },
+          {
+            shopName: 'lims旗舰店',
+            goodsName: 'LIMS零涩蓝山风味速溶咖啡40条',
+            goodsSpecification: '蓝山风味咖啡一袋(共40条), 选服务',
+            finalPrice: '36.80',
+            num: 1,
+            isCheck: false,
+            src: '../img/coffee1.jpg',
+            firstPice: '39',
+            lastPrice: '90',
+            id: Math.random()
+          }
+        ]
+      },
+      methods: {
+        checkAllGoods(e) {
+          this.goodsData.forEach(element => {
+            element.isCheck = e
+          });
+        },
+        addGoods() {
+          this.goodsData.push(
+            {
+              shopName: 'lims旗舰店',
+              goodsName: 'LIMS零涩蓝山风味速溶咖啡40条',
+              goodsSpecification: '蓝山风味咖啡一袋(共40条), 选服务',
+              finalPrice: '36.80',
+              num: 1,
+              isCheck: false,
+              src: '../img/coffee1.jpg',
+              firstPice: '39',
+              lastPrice: '90',
+              id: Math.random()
+            }
+          )
+        },
+        subNum() {
+          this.goodsData.forEach(x => {
+            if (x.num > 1) {
+              for (var i in this.goodsData) {
+                if (this.goodsData[i].id === id) {
+                  Vue.set(this.goodsData, 'num', this.goodsData[i].num--);
+                }
+              }
+            }
+          })
+
+        },
+        addNum(id) {
+          for (var i in this.goodsData) {
+            if (this.goodsData[i].id === id) {
+              Vue.set(this.goodsData, 'num', this.goodsData[i].num++);
+            }
+          }
+        }
+      },
+      computed: {
+        isAll: {
+          get() {
+            return this.goodsData.length === this.goodsData.reduce((pre, checked) => pre + (checked.isCheck ? 1 : 0), 0)
+          },
+          set(value) {
+            this.checkAllGoods(value)
+          }
+        },
+        sumPrice() {
+          let all = 0
+          this.goodsData.forEach(element => {
+            if (element.isCheck) {
+              all = Number(element.finalPrice * element.num)
+              all = Number(all.toFixed(3).slice(0, -1));
+            }
+          });
+          return all
+        },
+        sumValue() {
+          return this.goodsData.reduce((pre, checked) => pre + (checked.isCheck ? 1 : 0), 0)
+        }
+
+      }
+    })
+  </script>
+</body>
+<style>
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: rgb(246, 246, 246);
+  }
+
+  .wrapper {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    position: fixed;
+    width: 100vw;
+    height: 80px;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 10px;
+    z-index: 1;
+  }
+
+  .top-placeholder {
+    height: 80px;
+  }
+
+  .content {
+    overflow: scroll;
+    flex: 1;
+  }
+
+  input {
+    cursor: pointer;
+    position: relative;
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.9rem;
+  }
+
+  input[type='checkbox']::after {
+    position: absolute;
+    top: 0;
+    background-color: rgb(203, 203, 203);
+    color: rgb(245, 245, 245);
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    visibility: visible;
+    padding-left: 0px;
+    text-align: center;
+    content: ' ';
+    overflow: hidden;
+  }
+
+  input[type='checkbox']:checked::after {
+    background-color: rgb(198, 105, 86);
+    content: '✓';
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+
+  .edit {
+    float: right;
+    position: absolute;
+    right: 30px;
+  }
+
+  .title {
+    height: 2rem;
+    margin-top: 10px;
+    border-bottom: 1px solid rgb(244, 240, 240);
+  }
+
+  .shopping-bus {
+    font-size: 18px;
+    font-weight: 550;
+    margin-left: 30px;
+  }
+
+  .all-list {
+    color: rgb(198, 105, 86);
+    font-weight: 550;
+    margin: 10px 30px;
+  }
+
+  .shopping-list {
+    background-color: rgb(255, 255, 255);
+    width: 24rem;
+    height: 15rem;
+    margin: 10px auto;
+    border-radius: 10px;
+    font-size: 15px;
+    margin-bottom: 7px;
+  }
+
+  .shop {
+    line-height: 40px;
+    font-weight: 550;
+  }
+
+  .coupons-title {
+    height: 30px;
+    width: 24rem;
+    margin-top: -10px;
+  }
+
+  .coupons {
+    color: white;
+    font-size: 6px;
+    border-radius: 4px;
+    margin-left: 30px;
+    background-color: rgb(217, 69, 53);
+  }
+
+  .tips {
+    float: right;
+    margin-right: 10px;
+  }
+
+  .list {
+    width: 24rem;
+    height: 150px;
+    top: -20px;
+    float: left;
+    position: relative;
+  }
+
+  .check {
+    top: 65px;
+  }
+
+  .img {
+    width: 110px;
+    height: 110px;
+    margin-left: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .img img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .goods-name {
+    top: 0;
+  }
+
+  .goods-detail {
+    position: absolute;
+    width: 250px;
+    right: -15px;
+    top: 30px;
+  }
+
+  .goods-specification {
+    background-color: rgb(242, 242, 242);
+    width: 200px;
+    border-radius: 10px;
+    margin-top: 10px;
+    color: rgb(138, 138, 138);
+    font-size: 13px;
+  }
+
+  .shop-name {
+    background-color: rgb(88, 180, 130);
+    width: 65px;
+    text-align: center;
+    border-radius: 4px;
+    margin-top: 10px;
+    color: #fff;
+    font-size: 13px;
+  }
+
+  .quantity {
+    position: absolute;
+    right: 35px;
+    bottom: 0px;
+    width: 80px;
+    height: 25px;
+    border: 1px solid rgb(215, 215, 215);
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+
+  }
+
+  .middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(215, 215, 215);
+    width: 25px;
+    height: 25px;
+  }
+
+  .price {
+    font-size: 12px;
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .final-price {
+    color: rgb(217, 69, 53);
+    position: absolute;
+    bottom: -28px;
+    font-weight: 600;
+  }
+
+  .footer {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    background-color: rgb(255, 255, 255);
+    left: 0;
+    bottom: 37px;
+    display: flex;
+    align-items: center;
+  }
+
+  .total-price {
+    position: absolute;
+    left: 72px;
+  }
+
+  .settlement {
+    position: absolute;
+    right: 8px;
+    top: 9px;
+    width: 81px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 30px;
+    background-color: rgb(233, 79, 83);
+    border-radius: 23px;
+    color: #fff;
+    font-size: 14px;
+  }
+</style>
+
+</html>

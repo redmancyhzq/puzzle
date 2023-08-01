@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1272631",
+      "name": "添加",
+      "font_class": "add-s",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "33172814",
+      "name": "勾选框nor",
+      "font_class": "gouxuankuangnor",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    }
+  ]
+}
