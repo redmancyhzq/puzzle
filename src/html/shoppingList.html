@@ -74,24 +74,24 @@
             shopName: 'JD G7咖啡京东自营旗舰店',
             goodsName: '中原G7三合一速溶咖啡1600g',
             goodsSpecification: '【越文版】16g*100条, 选服务',
-            finalPrice: '83.32',
+            finalPrice: 83.32,
             num: 1,
             isCheck: false,
             src: '../img/coffee.jpg',
-            firstPice: '85',
-            lastPrice: '90',
+            firstPice: 85,
+            lastPrice: 90,
             id: Math.random()
           },
           {
             shopName: 'lims旗舰店',
             goodsName: 'LIMS零涩蓝山风味速溶咖啡40条',
             goodsSpecification: '蓝山风味咖啡一袋(共40条), 选服务',
-            finalPrice: '36.80',
+            finalPrice: 36.80,
             num: 1,
             isCheck: false,
             src: '../img/coffee1.jpg',
-            firstPice: '39',
-            lastPrice: '90',
+            firstPice: 39,
+            lastPrice: 90,
             id: Math.random()
           }
         ]
@@ -108,7 +108,7 @@
               shopName: 'lims旗舰店',
               goodsName: 'LIMS零涩蓝山风味速溶咖啡40条',
               goodsSpecification: '蓝山风味咖啡一袋(共40条), 选服务',
-              finalPrice: '36.80',
+              finalPrice: 36.80,
               num: 1,
               isCheck: false,
               src: '../img/coffee1.jpg',
@@ -151,7 +151,8 @@
           let all = 0
           this.goodsData.forEach(element => {
             if (element.isCheck) {
-              all = Number(element.finalPrice * element.num)
+              //debugger
+              all += Number(element.finalPrice * element.num)
               all = Number(all.toFixed(3).slice(0, -1));
             }
           });
